@@ -1,0 +1,52 @@
+1. Drinkers who do not like any beer
+
+SELECT d.name
+FROM drinkers d
+WHERE NOT EXISTS (
+	SELECT l.drinker
+    	FROM likes l
+   	 WHERE l.drinker = d.name)
+
+2.
+Bars which serve no beer(s) which Joe likes  (you can use one of the outer joins if you want)
+
+SELECT DISTINCT s.bar
+FROM sells s
+WHERE NOT EXISTS (
+	SELECT l.beer
+    	FROM likes l
+    	WHERE s.beer = l.beer AND l.drinker = 'Joe');
+
+3.Beers which are liked by at most one drinker who frequents Cabana
+SELECT distinct b.name
+FROM beers b
+WHERE NOT EXISTS (
+		/*beers that liked by at least 2 drinkers who frequnet Cabana*/
+		SELECT distinct l1.beer
+		FROM likes l1, likes l2, frequents f1, frequents f2
+		WHERE f1.bar = 'Cabana' AND f2.bar = 'Cabana' 
+			AND f1.drinker = l1.drinker AND f2.drinker = l2.drinker
+ 		        AND l1.beer = l2.beer AND l1.drinker <> l2.drinker
+	      		AND b.name = l1.beer)
+
+4.Drinkers who frequent no bars that Tom frequents
+
+SELECT distinct d.name
+FROM drinkers d
+WHERE NOT EXISTS( Select f1.drinker
+		From frequents f1, frequents f2
+		WHERE f1.bar = f2.bar AND f2.drinker = 'Tom' AND d.name = f1.drinker)
+
+5.Bars which serve all beers that Cabana serves and possibly more
+
+SELECT distinct s.bar
+FROM sells s
+WHERE NOT EXISTS(
+	SELECT s1.beer
+	FROM sells s1
+	WHERE s1.bar = 'Cabana' AND s1.beer <> s.beer)
+
+6.Pairs of drinkers who frequent the same bar (and possibly other bars)
+SELECT distinct f1.drinker, f2.drinker
+FROM frequents f1, frequents f2
+WHERE f1.bar = f2.bar AND f1.drinker <> f2.drinker and f1.drinker <f2.drinker;
