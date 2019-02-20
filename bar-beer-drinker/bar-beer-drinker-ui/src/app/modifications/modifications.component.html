@@ -1,0 +1,901 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Modifications Page</h1>
+    <p class="lead"></p>
+  </div>
+</div>
+
+<div class = "container">
+    <h2 class="text-center font-weight-dark">Drinkers Table Modifications</h2>
+    <br>
+    <table>
+      <tr>
+        <td>
+          <h5>UPDATE </h5> 
+          <label>SELECT DRINKER TO UPDATE</label>
+          <form [formGroup] = "drinkerUpdateForm" (ngSubmit) ="onSubmitDrinkerUpdate()">
+            <label>
+              <h6>Name:</h6>
+              <select id = "drinkerUpdate" formControlName = "drinkerName">
+                  <option *ngFor= "let drinkers of drinkerName_UPDATE" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+              </select>
+            </label>
+            <br>
+            <label>
+                <h6>Update Attribute: </h6>
+                  <input type = "radio" formControlName = "drinkerColumn" value = "name">Name 
+                  <input type = "radio" formControlName = "drinkerColumn" value = "address">Address 
+                  <input type = "radio" formControlName = "drinkerColumn" value = "state">State 
+                  <input type = "radio" formControlName = "drinkerColumn" value = "phone">Phone 
+            </label> 
+            <br>
+            <label>
+              <h6>New Value:</h6>
+              <input type = "text" formControlName = "drinkerupdateValue">
+            </label>
+            <br>
+              <div>
+                <button type = "submit" [disabled] ="!drinkerUpdateForm.valid">Submit</button>
+              </div>
+              <p>status for Update: {{drinkerUpdateStatus}}</p>
+            </form>
+        </td>
+        <td >
+          <h5>INSERT </h5> 
+          <label>INPUT DRINKER INFO</label>
+          <form [formGroup] = "insertDrinkerForm" (ngSubmit) = "onSubmit4()">
+               <label>
+                <h6>Name:</h6>
+                 <input type = "text" formControlName = "drinkerName" minlength="1">
+               </label>
+               <br>
+               <label>
+                <h6>Address:</h6>
+                 <input type = "text" formControlName = "drinkerAddress" minlength="1">
+               </label>
+               <br>
+               <label>
+                <h6>State:</h6>
+               <p-dropdown [options] = "list_states" formControlName = "drinkerState"></p-dropdown>
+              </label>
+              <br>
+               <label>
+                 <h6>Phone</h6>
+                   <input type = "text" formControlName = "drinkerPhone" minlength="12" maxlength="12">
+                   <br>
+                   (format xxx-xxx-xxxx)
+                 </label>
+               <p></p>
+               <button type = "submit" [disabled] = "!insertDrinkerForm.valid">Submit</button>
+              <p>status: inserting - {{drinker_insert}}
+            </form>
+        </td>
+        <td>
+          <h5>DELETE</h5>
+          <label>SELECT THE DRINKER TO DELETE</label>
+          <form [formGroup] = "deleteDrinkerForm" (ngSubmit) = "delete_drinker()">
+               <label>
+                 <h6>Drinker Name: </h6>
+                 <select id = "drinkerDelete" formControlName = "D_drinkerName">
+                    <option *ngFor= "let drinkers of drinkerName_UPDATE" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+                </select>
+               </label>
+               <br>
+               <p></p>
+               <button type = "submit" [disabled] = "!deleteDrinkerForm.valid">Submit</button>
+              <p>status: deleting - {{drinker_delete}}
+          </form>
+        </td>
+      </tr>
+    </table>
+</div>
+<br>
+<div class = "container">
+    <h2 class="text-center font-weight-dark">Bars Table Modifications</h2>
+    <br>
+    <table>
+      <tr>
+        <td>
+          <h5>UPDATE </h5>
+          <label>SELECT BAR TO UPDATE</label>
+          <b></b>
+          <form [formGroup] = "barUpdateForm" (ngSubmit) ="onSubmitBarUpdate()">
+            <label>
+              <h6>Name: </h6>
+              <select id = "barUpdate" formControlName = "barName">
+                <option *ngFor= "let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>
+              </select>
+            </label>
+            <br>
+            <label>
+                <h6>Update Attribute: </h6>
+                  <input type = "radio" formControlName = "barColumn" value = "name">Name 
+                  <input type = "radio" formControlName = "barColumn" value = "license">License 
+                  <input type = "radio" formControlName = "barColumn" value = "state">State 
+                  <input type = "radio" formControlName = "barColumn" value = "phone">Phone
+                  <input type = "radio" formControlName = "barColumn" value = "address">Address
+            </label> 
+            <br>
+            <label>
+              <h6>New Value: </h6>
+              <input type = "text" formControlName = "barupdateValue">
+            </label>
+            <br>
+              <div>
+                <button type = "submit" [disabled] ="!barUpdateForm.valid">Submit</button>
+              </div>
+              <p>status for Update: {{barUpdateStatus}}</p>
+            </form>
+        </td>
+        <td>
+            <h5>INSERT</h5>
+            <label>INPUT BAR INFO</label>
+            <form [formGroup] = "insertBarForm" (ngSubmit) = "onSubmit5()">
+                 <label>
+                  <h6>Name: </h6>
+                   <input type = "text" formControlName = "barName">
+                 </label>
+                 <br>
+                 <label>
+                  <h6>License Number: </h6>
+                   <input type = "number" formControlName = "barLicense" required minlength="4" maxlength="5" >
+                   <br>
+                   (4 or 5 digit number required)
+                 </label>
+                 <br>
+                 <label>
+                  <h6>State: </h6>
+                  <p-dropdown [options] = "list_states" formControlName = "barState"></p-dropdown>
+                </label>
+                 <br>
+                 <label>
+                    <h6>Phone: </h6>
+                     <input type = "text" formControlName = "barPhone" minlength="12" maxlength="12">
+                     <br>
+                     (format xxx-xxx-xxxx)
+                   </label>
+                   <br>
+                   <label>
+                      <h6>Address: </h6>
+                       <input type = "text" formControlName = "barAddress">
+                     </label>
+                 <p></p>
+                 <button type = "submit" [disabled] = "!insertBarForm.valid">Submit</button>
+                <p>status: inserting - {{bar_insert}}
+            
+              </form>
+        </td>
+        <td>
+          <h5>DELETE</h5>
+          <form [formGroup] = "deleteBarForm" (ngSubmit) = "delete_Bar()">
+              <label>
+                SELECT BAR TO DELETE
+              </label> 
+               <label>
+                 <h6>Bar Name:</h6>
+                 <select id = "barDelete" formControlName = "deleteBar">
+                    <option *ngFor= "let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>
+                  </select>
+               </label>
+              <br>
+               <p></p>
+               <button type = "submit" [disabled] = "!deleteBarForm.valid">Submit</button>
+              <p>status: deleting - {{bar_delete}}
+            </form>
+        </td>
+      </tr>
+    </table>
+</div>
+<br>
+<div class = "container">
+  <h2 class="text-center font-weight-dark">Items Table Modifications</h2>
+  <br>
+  <table>
+    <tr>
+      <td>
+        <h5>UPDATE</h5>
+        <label>SELECT ITEM TO UPDATE</label>
+          <form [formGroup] = "updateItemForm" (ngSubmit) ="onSubmitItemUpdate()">
+              <label>
+                <h6>Item Name:</h6>
+                <select id = "itemUpdateName" formControlName = "itemName">
+                  <option *ngFor= "let item of itemName_list" [ngValue] = "item.name">{{item.name}}</option>
+                </select>
+              </label>
+              <br>
+              <label>
+                <h6>Update Attribute: </h6>
+                  <input type = "radio" formControlName = "itemColumn" value = "name">Name 
+                  <input type = "radio" formControlName = "itemColumn" value = "manf">Manufacturer 
+              </label> 
+              <br>
+              <label>
+                <h6>New Value:</h6>
+                <input type = "text" formControlName = "itemUpdateValue">
+              </label>
+              <br>
+              <div>
+                <button type = "submit" [disabled] ="!updateItemForm.valid">Submit</button>
+              </div>
+              <p>status for Update: {{item_updateStatus}}</p>
+          </form>
+      </td>
+      <td>
+        <h5>INSERT</h5>
+        <label>INPUT ITEM INFO</label>
+        <form [formGroup] = "insertItemForm" (ngSubmit) = "onSubmitItemInsert()">
+           <label>
+             <h6>Name: </h6>
+             <input type = "text" formControlName = "itemName">
+           </label>
+           <br>
+           <label>
+            <h6>Manufacturer: </h6>
+             <input type = "text" formControlName = "itemManf">
+           </label>
+           <br>
+           <label>
+            <h6>Type: </h6>
+             <input type = "radio" formControlName = "itemType" value = "Beer">Beer
+             <input type = "radio" formControlName = "itemType" value = "SoftDrink">Soft Drink
+             <input type = "radio" formControlName = "itemType" value = "Food">Food
+           </label>
+           <p></p>
+           <button type = "submit" [disabled] = "!insertItemForm.valid">Submit</button>
+          <p>status: inserting - {{insertItemStatus}}
+        </form>
+        <br>
+      </td>
+      <td>
+        <h5>DELETE</h5>
+        <form [formGroup] = "deleteItemForm" (ngSubmit) = "delete_item()">
+          <label>SELECT ITEM TO DELETE</label> 
+          <br>
+          <label> 
+            <h6>Item Name:</h6>
+            <select id = "itemDeleteName" formControlName = "D_itemname">
+                <option *ngFor= "let item of itemName_list" [ngValue] = "item.name">{{item.name}}</option>
+            </select>
+          </label>
+           <p></p>
+           <button type = "submit" [disabled] = "!deleteItemForm.valid">Submit</button>
+          <p>status: deleting - {{item_delete}}
+        </form>
+      </td> 
+    </tr>
+  </table>
+</div>
+<br>
+<div class = "container">
+    <h2 class="text-center font-weight-dark">Sells Table Modifications</h2>
+    <br>
+    <table>
+      <tr>
+        <td>
+          <h5>UPDATE</h5>
+        </td>
+        <td>
+            <h5>INSERT</h5>
+            <form [formGroup] = "insertSellsform" (ngSubmit) = "onSubmit10()">
+                <label>
+                  INPUT SELLS INFO
+                </label> 
+                 <br>
+                 <label>
+                    <h6>Bar Name: </h6>
+                    <select id = "sellsInsertBar" formControlName = "sellBar">
+                      <option *ngFor= "let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>
+                    </select>
+                </label>
+                 <br>
+                 <label>
+                    <h6>Item Name:</h6>
+                    <select id = "sellsInsertItem" formControlName = "sellItem">
+                      <option *ngFor= "let item of itemName_list" [ngValue] = "item.name">{{item.name}}</option>
+                    </select>
+                  </label>
+                <br>
+                <label>
+                    <h6>Price: </h6>
+                     <input type = "number" formControlName = "sellPrice" minlength="1" >
+                   </label>
+                  <br>
+                 <p></p>
+                 <button type = "submit" [disabled] = "!insertSellsform.valid">Submit</button>
+                <p>status: inserting - {{sell_insert}}
+                <br>Pattern 3 validation check: {{sell_insert}}
+              </form>
+        </td>
+        <td>
+          <h5>DELETE</h5>
+          <form [formGroup] = "deleteSellForm" (ngSubmit) = "delete_sell()">
+            <label>SELECT BAR-ITEM TO DELETE</label> 
+            <br>
+             <label>
+               <h6>Bar: </h6>
+                <select id = "sellsDeletetBar" formControlName = "D_sellBar">
+                  <option *ngFor= "let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>
+                </select>
+              </label>
+              <br>
+              <label>
+                <h6>Item Name:</h6>
+                <select id = "sellsDeleteItem" formControlName = "D_sellItem">
+                  <option *ngFor= "let item of itemName_list" [ngValue] = "item.name">{{item.name}}</option>
+                </select>
+              </label>
+             <p></p>
+             <button type = "submit" [disabled] = "!deleteSellForm.valid">Submit</button>
+            <p>status: deleting - {{sell_delete}}
+          </form>
+        </td>
+      </tr>
+    </table>
+  </div>
+<br>
+<div class = "container">
+    <h2 class="text-center font-weight-dark">Frequents Table Modifications</h2>
+    <br>
+    <table>
+      <tr>
+        <td>
+          <h5>UPDATE </h5>
+          <label>SELECT DRINKER-BAR TO UPDATE</label>
+          <form [formGroup] = "updateFreqsForm" (ngSubmit) ="onSubmitFreqsUpdate()">
+              <label>
+                <h6>Drinker Name:</h6>
+                <select id = "freqUpdateName" formControlName = "freqDrinker">
+                  <option *ngFor= "let drinkers of drinkerName_UPDATE" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+                </select>
+              </label> 
+              <br>
+              <label>Update the Bar Frequeted</label>
+              <br>
+              <label>
+                <h6>Old Value: </h6>
+                <select id ="freqUpdateBar1" formControlName ="freqOldBar">
+			            <option *ngFor= "let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>
+                </select>
+            </label>
+            <br>
+            <label>
+                <h6>New Value: </h6>
+                <select id ="freqUpdateBar1" formControlName ="freqNewBar">
+                    <option *ngFor= "let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>
+                </select>
+            </label>
+            <br>
+              <div>
+                <button type = "submit" [disabled] ="!updateFreqsForm.valid">Submit</button>
+              </div>
+              <p>status for Update: {{freqs_updateStatus}}</p>
+		          <br>Pattern 2 Verfication check : {{pattern2_bool}}
+          </form>
+ 
+        </td>
+        <td>
+            <h5>INSERT </h5> 
+            <form [formGroup] = "insertFreqForm" (ngSubmit) = "onSubmit7()">
+                <label>
+                  INPUT FREQUENTS INFO
+                </label> 
+                 <br>
+                 <label>
+                    <h6>Name: </h6>
+                    <select id = "freqInsertName" formControlName = "freqName">
+                        <option *ngFor= "let drinkers of drinkerName_UPDATE" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+                    </select>
+                  </label>
+                 <br>
+                 <label>
+                   <h6>Bar Name: </h6>
+                    <select id = "freqInsertBar" formControlName = "freqBar">
+                      <option *ngFor= "let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>
+                    </select>
+                 </label>
+                <br>
+                 <p></p>
+                 <button type = "submit" [disabled] = "!insertFreqForm.valid">Submit</button>
+                <p>status: inserting - {{freq_insert}}
+                <br>Pattern 2 Verfication check : {{pattern2_bool}}
+              </form>
+        </td>
+        <td>
+          <h5>DELETE</h5>
+          <form [formGroup] = "deleteFreqForm" (ngSubmit) = "delete_freq()">
+              <label>SELECT FREQUENTS INFO TO DELETE</label>
+               <label>
+                  <h6>Drinker Name: </h6>
+                  <select id="freqDeleteName" formControlName ="D_freqName">
+                    <option *ngFor= "let drinkers of drinkerFreqs_list" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+                  </select>
+                </label>
+               <br>
+               <label>
+                <h6>Bar Name: </h6>
+                <select id="freqDeleteBar" formControlName ="D_freqBar">
+                  <option *ngFor ="let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>}
+                </select>
+               </label>
+               <p></p>
+               <button type = "submit" [disabled] = "!deleteFreqForm.valid">Submit</button>
+              <p>status: deleting - {{freq_delete}}
+            </form>
+        </td>
+      </tr>
+    </table>
+</div>
+<br>
+<div class = "container">
+    <h2 class="text-center font-weight-dark">Likes Table Modifications</h2>
+    <br>
+    <table>
+      <tr>
+        <td>
+          <h5>UPDATE</h5> 
+          <label>SELECT DRINKER TO UPDATE</label>
+          <form [formGroup] = "updateLikeForm" (ngSubmit) ="onSubmitLikeUpdate()">
+              <label>
+                <h6>Drinker Name:</h6>
+                <select id = "likeUpdateName" formControlName = "likeDrinker">
+                  <option *ngFor= "let drinkers of drinkerLikes_list" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+                </select>
+              </label> 
+              <br>
+              <label>Update the Beer Liked </label>
+              <br>
+              <label>
+                <h6>Old Value: </h6>
+                <input type = "text" formControlName = "likeOldVal">
+            </label>
+            <br>
+            <label>
+                <h6>New Value: </h6>
+                <input type = "text" formControlName = "likeNewVal">
+            </label>
+            <br>
+              <div>
+                <button type = "submit" [disabled] ="!updateLikeForm.valid">Submit</button>
+              </div>
+              <p>status for Update: {{like_updateStatus}}</p>
+          </form>
+        </td>
+        <td>
+            <h5>INSERT</h5>
+            <form [formGroup] = "insertLikeForm" (ngSubmit) = "onSubmit9()">
+                <label>
+                  SELECT LIKES INFO
+                </label> 
+                 <br>
+                 <label>
+                   <h6>Drinker Name: </h6>
+                   <select id = "likesInsert" formControlName ="likeName">
+                     <option *ngFor= "let drinkers of drinkerName_UPDATE" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+                   </select>
+                 </label>
+                 <br>
+                 <label>
+                  <h6>Beer Name: </h6>
+                  <select id ="like_insert" formControlName = "likeBeer">
+                    <option *ngFor = "let beers of beerName_UPDATE" [ngValue]= "beers.name">{{beers.name}}</option>
+                  </select>
+                 </label>
+                <br>
+                 <p></p>
+                 <button type = "submit" [disabled] = "!insertLikeForm.valid">Submit</button>
+                <p>status: inserting - {{like_insert}}
+            </form>
+        </td>
+        <td>
+          <h5>DELETE</h5>
+          <form [formGroup] = "deleteLikeForm" (ngSubmit) = "delete_like()">
+            <label>SELECT LIKES INFO TO DELETE</label> 
+            <br>
+             <label>
+                <h6>Drinker: </h6>
+                <select id = "likeDeleteDrinker" formControlName = "D_likename">
+                  <option *ngFor= "let drinkers of drinkerLikes_list" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+                </select>
+              </label> 
+              <br>
+              <label>
+                <h6>Beer Name: </h6>
+                <select id ="likeDeleteBeer" formControlName = "D_likeBeer">
+                  <option *ngFor = "let beers of beerName_UPDATE" [ngValue]= "beers.name">{{beers.name}}</option>
+                </select> 
+               </label>
+             <p></p>
+             <button type = "submit" [disabled] = "!deleteLikeForm.valid">Submit</button>
+            <p>status: deleting - {{like_delete}}
+          </form>
+        </td>
+      </tr>
+    </table>
+</div>
+<br>
+<div class = "container">
+    <h2 class="text-center font-weight-dark">Transactions Table Modifications</h2>
+    <br>
+    <table>
+      <tr>
+        <td>
+          <h5>UPDATE</h5>
+        </td>
+        <td>
+            <h5>INSERT</h5>
+            <form [formGroup] ="redirectBarForm" (ngSubmit) = "onSubmitRedirectBar()">
+            <h6>Please direct yourself to the Bar Page for the Transaction you want to add. Complete the form at the bottom.</h6>
+            <label>
+                <h6>Bar Name: </h6>
+                <select id ="transInsertBar" formControlName = "redirecttoBarPage" >
+                  <option *ngFor ="let bars of barName_UPDATE" [ngValue] = "bars.name" >{{bars.name}}</option>
+                </select>
+               </label>
+               <br>
+                <p></p>
+                <button type = "submit" [disabled] = "!redirectBarForm.valid">Submit</button>
+            </form>
+          </td>
+        <td>
+          <h5>DELETE</h5>
+          <form [formGroup] = "deleteTransForm" (ngSubmit) = "delete_trans()">
+              <label>
+                SELECT TRANSACTION ID TO DELETE
+              </label> 
+              <br>
+               <label>
+                  <h6>Transaction ID:</h6>
+                  <input type = "number" formControlName = "D_transID">
+                </label>
+               <p></p>
+               <button type = "submit" [disabled] = "!deleteTransForm.valid">Submit</button>
+              <p>status: deleting - {{trans_delete}}
+
+            </form>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <br>
+  <div class = "container">
+      <h2 class="text-center font-weight-dark">Has Table Modifications</h2>
+      <br>
+      <table>
+        <tr>
+          <td>
+            <h5>UPDATE</h5>
+            <form [formGroup] = "updateHasform" (ngSubmit) = "onSubmitHasUpdate()">
+                <label>INPUT HAS INFO</label>
+                 <br>
+                 <label>
+                   <h6>Transaction ID: </h6>
+                   <input type = "number" formControlName = "hasTID">
+                 </label>
+                 <br>
+                 <label>
+                    <h6>Current Item:</h6>
+                    <select id = "hasUpdateItem1" formControlName = "hasOldItem">
+                      <option *ngFor= "let item of itemName_list" [ngValue] = "item.name">{{item.name}}</option>
+                    </select>
+                  </label>
+                  <label>
+                      <h6>New Item:</h6>
+                      <select id = "hasUpdateItem2" formControlName = "hasNewItem">
+                        <option *ngFor= "let item of itemName_list" [ngValue] = "item.name">{{item.name}}</option>
+                      </select>
+                    </label>
+                <br>
+                 <p></p>
+                 <button type = "submit" [disabled] = "!updateHasform.valid">Submit</button>
+                <p>status: inserting - {{has_update}}
+            </form>
+          </td>
+          <td>
+              <h5>INSERT</h5>
+              <form [formGroup] = "insertHasform" (ngSubmit) = "onSubmit11()">
+                  <label>INPUT HAS INFO</label>
+                   <br>
+                   <label>
+                     <h6>Transaction ID: </h6>
+                     <input type = "number" formControlName = "hasTID">
+                   </label>
+                   <br>
+                   <label>
+                      <h6>Item Name:</h6>
+                      <select id = "hasInsertItem" formControlName = "hasItem">
+                        <option *ngFor= "let item of itemName_list" [ngValue] = "item.name">{{item.name}}</option>
+                      </select>
+                    </label>
+                  <br>
+                   <p></p>
+                   <button type = "submit" [disabled] = "!insertHasform.valid">Submit</button>
+                  <p>status: inserting - {{has_insert}}
+                </form>
+          </td>
+          <td>
+            <h5>DELETE</h5>
+            <form [formGroup] = "deleteHasForm" (ngSubmit) = "delete_has()">
+              <label>SELECT TRANSACTION ID-ITEM TO DELETE FROM HAS </label> 
+              <br>
+               <label>
+                  <h6>Transaction ID: </h6>
+                  <input type = "number" formControlName = "D_hasTid">
+                </label>
+               <br>
+               <label>
+                <h6>Item Name:</h6>
+                <select id = "hasDeleteItem" formControlName = "D_hasItem">
+                  <option *ngFor= "let item of itemName_list" [ngValue] = "item.name">{{item.name}}</option>
+                </select>
+              </label>
+               <p></p>
+               <button type = "submit" [disabled] = "!deleteHasForm.valid">Submit</button>
+              <p>status: deleting - {{has_delete}} 
+            </form>
+          </td>
+        </tr>
+      </table>
+  </div>
+ <br>
+<div class = "container">
+    <h2 class="text-center font-weight-dark">Occurs Table Modifications</h2>
+    <br>
+    <table>
+      <tr>
+        <td>
+          <h5>UPDATE</h5>
+
+        </td>
+        <td>
+            <h5>INSERT</h5>
+            <form [formGroup] = "insertOccurForm" (ngSubmit) = "onSubmit8()">
+                <label>
+                  SELECT OCCURS INFO
+                </label> 
+                 <br>
+                 <label>
+                   <h6>Transaction ID: </h6>
+                   <input type = "text" formControlName = "occurTid">
+                 </label>
+                 <br>
+                 <label>
+                  <h6>Bar Name: </h6>
+                  <select id ="occursInsertBar" formControlName = "occurBar">
+                    <option *ngFor ="let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>}
+                  </select>
+                 </label>
+                <br>
+                 <p></p>
+                 <button type = "submit" [disabled] = "!insertOccurForm.valid">Submit</button>
+                <p>status: inserting - {{occur_insert}}
+              </form>
+        </td>
+        <td>
+          <h5>DELETE</h5>
+          <form [formGroup] = "deleteOccurForm" (ngSubmit) = "delete_occur()">
+            <label>SELECT OCCURS-INFO to DELETE</label> 
+            <br>
+             <label>
+                <H6>Transaction ID: </H6>
+                <input type = "number" formControlName = "D_occurTID">
+              </label>
+              <br>
+              <label>
+                <h6>Bar: </h6>
+                <select id = "occursDeleteBar" formControlName = "D_occurBar">
+                  <option *ngFor= "let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>
+                </select>
+                </label>
+             <p></p>
+             <button type = "submit" [disabled] = "!deleteOccurForm.valid">Submit</button>
+            <p>status: deleting - {{occur_delete}}
+          </form>
+        </td>
+      </tr>
+    </table>
+</div>
+<br>
+<div class = "container">
+  <h2 class="text-center font-weight-dark">Days Table Modifications</h2>
+  <br>
+  <table>
+    <tr>
+      <td>
+        <h5>UPDATE</h5>
+        <label>SELECT BAR TO UPDATE THE OPERATION DAYS INFO</label>
+          <form [formGroup] = "updateDaysForm" (ngSubmit) ="onSubmitDaysUpdate()">
+            <label>
+              <h6>Bar:</h6>
+              <select id = "daysUpdate" formControlName = "daysBarName">
+                  <option *ngFor= "let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>
+              </select>
+            </label>
+            <label>
+                <h6>Day of Week: </h6>
+                <input type = "radio" formControlName = "daysDay" value = "mon">Monday 
+                <input type = "radio" formControlName = "daysDay" value = "tue">Tuesday 
+                <input type = "radio" formControlName = "daysDay" value = "wed">Wednesday 
+                <input type = "radio" formControlName = "daysDay" value = "thur">Thursday 
+                <br>
+                <input type = "radio" formControlName = "daysDay" value = "fri">Friday 
+                <input type = "radio" formControlName = "daysDay" value = "sat">Saturday 
+                <input type = "radio" formControlName = "daysDay" value = "sun">Sunday 
+            </label>
+            <br>
+            <label>
+                <h6>Update Attribute: </h6>
+                  <input type = "radio" formControlName = "daysType" value = "name">Bar Name 
+                  <input type = "radio" formControlName = "daysType" value = "day">Day 
+                  <input type = "radio" formControlName = "daysType" value = "open">Open Time 
+                  <input type = "radio" formControlName = "daysType" value = "close">Close Time 
+            </label> 
+            <br>
+            <label>
+              <h6>New Value:</h6>
+              <input type = "text" formControlName = "daysNewValue">
+            </label>
+            <br>
+              <div>
+                <button type = "submit" [disabled] ="!updateDaysForm.valid">Submit</button>
+              </div>
+              <p>status for Update: {{day_update}}</p>
+            </form>
+      </td>
+      <td>
+          <h5>INSERT</h5>
+          <form [formGroup] = "insertDaysForm" (ngSubmit) = "onSubmitInsertDays()">
+              <label>
+                Generate Days Data
+              </label> 
+               <br>
+               <label>
+                 <h6>Bar Name: </h6>
+                 <select id = "daysInsertDay" formControlName = "daysName">
+                    <option *ngFor= "let bars of barName_UPDATE" [ngValue] = "bars.name">{{bars.name}}</option>
+                  </select>
+               </label>
+               <br>
+               <label>
+                <h6>Open Time: </h6> 
+                 <input type = "text" formControlName = "dayOpen" >
+                 <br>
+                 (24 hr time format. format: hh:mm:ss)
+               </label>
+               <br>
+               <label>
+                 <h6>Close Time:</h6>
+                 <input type = "text" formControlName = "dayClose" >
+                 <br>
+                 (24 hr time format. format: hh:mm:ss)
+               </label>
+               <br>
+               <label>
+                  <h6>Day: </h6>
+                    <input type = "radio" formControlName = "dayDay" value = "mon">Monday 
+                    <input type = "radio" formControlName = "dayDay" value = "tue">Tuesday 
+                    <input type = "radio" formControlName = "dayDay" value = "wed">Wednesday 
+                    <input type = "radio" formControlName = "dayDay" value = "thur">Thursday 
+                    <br>
+                    <input type = "radio" formControlName = "dayDay" value = "fri">Friday 
+                    <input type = "radio" formControlName = "dayDay" value = "sat">Saturday 
+                    <input type = "radio" formControlName = "dayDay" value = "sun">Sunday 
+                  </label> 
+               <br>
+               <p></p>
+               <button type = "submit" [disabled] = "!insertDaysForm.valid">Submit</button>
+              <p>status: inserting - {{day_insert}}
+          </form>
+      </td>
+      <td>
+        <h5>DELETE</h5>
+        <form [formGroup] = "deleteDayForm" (ngSubmit) = "delete_day()">
+          <label>SELECT BAR-DAY TO DELETE</label> 
+           <br>
+           <label>
+             <h6>Bar Name: </h6>
+             <input type = "text" formControlName = "D_daybar">
+           </label>
+           <br>
+           <label>
+              <b>Day: </b>
+              <br>
+                <input type = "radio" formControlName = "D_dayDay" value = "mon">Monday 
+                <input type = "radio" formControlName = "D_dayDay" value = "tue">Tuesday 
+                <input type = "radio" formControlName = "D_dayDay" value = "wed">Wednesday 
+                <input type = "radio" formControlName = "D_dayDay" value = "thur">Thursday 
+                <br>
+                <input type = "radio" formControlName = "D_dayDay" value = "fri">Friday 
+                <input type = "radio" formControlName = "D_dayDay" value = "sat">Saturday 
+                <input type = "radio" formControlName = "D_dayDay" value = "sun">Sunday 
+            </label> 
+          <br>
+           <p></p>
+           <button type = "submit" [disabled] = "!deleteDayForm.valid">Submit</button>
+          <p>status: deleting - {{day_delete}}
+        </form>
+      </td>
+    </tr>
+  </table>
+</div>
+<br>
+<div class = "container">
+    <h2 class="text-center font-weight-dark">Pays Table Modifications</h2>
+    <br>
+    <table>
+      <tr>
+        <td>
+          <h5>UPDATE</h5>
+          <form [formGroup] = "updatePaysForm" (ngSubmit) = "update_pay()">
+              <label>INPUT INFO TRANSACTION ID-PAYER to UPDATE</label>
+              <br>
+              <label>
+                <h6>Transaction ID: </h6>
+                <input type = "number" formControlName = "payTID" minlength="1">
+              </label>
+              <br>
+              <label>
+                <h6>Current Payer: </h6> 
+                <select id = "paysUpdatePayer1" formControlName = "payOldDrinker">
+                    <option *ngFor= "let drinkers of drinkerName_UPDATE" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+                </select>
+              </label>
+              <label>
+                  <h6>New Payer: </h6>
+                  <select id = "paysUpdatePayer2" formControlName = "payNewDrinker">
+                      <option *ngFor= "let drinkers of drinkerName_UPDATE" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+                  </select>
+                </label>
+              <p></p>
+             <button type = "submit" [disabled] = "!updatePaysForm.valid">Submit</button>
+            <p>status: inserting - {{pays_updateStatus}}
+            </form>
+        </td>
+        <td>
+            <h5>INSERT</h5>
+            <form [formGroup] = "insertPayForm" (ngSubmit) = "insert_pay()">
+              <label>INPUT PAYS INFO</label>
+              <br>
+              <label>
+                <h6>Transaction ID: </h6>
+                <input type = "number" formControlName = "Pay_tid">
+              </label>
+              <br>
+              <label>
+                <h6>Payer: </h6>
+                <select id = "paysInsertPayer" formControlName = "Pay_name">
+                    <option *ngFor= "let drinkers of drinkerName_UPDATE" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+                </select>
+              </label>
+              <p></p>
+             <button type = "submit" [disabled] = "!insertPayForm.valid">Submit</button>
+            <p>status: inserting - {{pay_insert}}
+            </form>
+            
+        </td>
+        <td>
+          <h5>DELETE</h5>
+          <form [formGroup] = "deletePayForm" (ngSubmit) = "delete_pay()">
+            <label>
+              SELECT TRANSACTION ID-PAYER TO DELETE
+            </label> 
+            <br>
+             <label>
+               <h6>TRANSACTION ID: </h6>
+                <input type = "number" formControlName = "D_payTID">
+              </label>
+              <br>
+              <label>
+                  <h6>Payer: </h6>
+                  <select id = "paysDeletePayer" formControlName = "D_payPayer">
+                      <option *ngFor= "let drinkers of drinkerName_UPDATE" [ngValue] = "drinkers.name">{{drinkers.name}}</option>
+                  </select>
+                </label>
+             <p></p>
+             <button type = "submit" [disabled] = "!deletePayForm.valid">Submit</button>
+            <p>status: deleting - {{pay_delete}}
+          </form>
+        </td>
+      </tr>
+    </table>
+  </div>
+<p></p>

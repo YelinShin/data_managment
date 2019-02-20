@@ -1,0 +1,82 @@
+<br>
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">{{ beerName }}</h1>
+      <p class="beer-details" *ngIf="beerDetails">
+        <p>Manufacturer: {{ beerDetails?.manf }} </p>
+    </div>
+</div>
+<br>
+<div class="container">
+  <div class="p-3 mb-2 bg-warning text-dark">
+      <h3 class="text-center font-weight-light">TOP 3 BARS</h3></div>
+  <p class="text-sm-center font-weight-light">Bars where this beer sells the most.</p>
+  <p-table [value]="bar">
+  <ng-template pTemplate="header">
+  <tr>
+  <th class="text-center">Name</th>
+  <th class="text-center">Count</th>
+  </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-bar>
+  <tr>
+  <td class="text-center">
+    <a routerLink = "/bars/{{ bar.bar }}">
+        {{ bar.bar }}
+    </a>
+  </td>
+  <td class="text-center">{{ bar.count }}</td>
+  </tr>
+  </ng-template>
+  </p-table>
+ </div>
+ <br>
+<br>
+<div class="container">
+  <div class="p-3 mb-2 bg-warning text-dark">
+      <h3 class="text-center font-weight-light">TOP 3 CONSUMERS</h3></div>
+  <p class="text-sm-center font-weight-light">Drinkers who are the biggest consumers of this beer.</p>
+  <p-table [value]="consumer">
+  <ng-template pTemplate="header">
+  <tr>
+  <th class="text-center">Name</th>
+  <th class="text-center">Count</th>
+  </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-consumer>
+  <tr>
+  <td class="text-center">
+    <a routerLink= "/drinkers/{{consumer.name}}">
+      {{ consumer.name }}
+    </a>
+    </td>
+  <td class="text-center">{{ consumer.count }}</td>
+  </tr>
+  </ng-template>
+  </p-table>
+ </div>
+ <br>
+ <br>
+ <div class="container">
+   <div class="p-3 mb-2 bg-warning text-dark">
+      <h3 class="text-center font-weight-light">TOP 3 TIME DISTRIBUTION</h3></div>
+   
+   <p class="text-sm-center font-weight-light ">Time distribution of when this beer sells the most.</p>
+   <p-table [value]="time">
+   <ng-template pTemplate="header">
+   <tr>
+   <th class="text-center">Time Period</th>
+   <th class="text-center">Count</th>
+   </tr>
+   </ng-template>
+   <ng-template pTemplate="body" let-time>
+   <tr>
+   <td class="text-center">{{ time.hr }}</td>
+   <td class="text-center">{{ time.count }}</td>
+   </tr>
+   </ng-template>
+   </p-table>
+  </div>
+  <br>
+
+<p></p>

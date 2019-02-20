@@ -1,0 +1,126 @@
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">{{ drinkerName }}</h1>
+    <p class="drinker-details" *ngIf="drinkerDetails">
+      {{ drinkerDetails?.address }} <span *ngIf="drinkerDetails.address && drinkerDetails.state">| </span>{{ drinkerDetails?.state}}
+      <br>
+      {{ drinkerDetails?.phone }}
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  <h2 class="text-center font-weight-light">Transactions</h2>
+  <br>
+  <p-table [value]="transactions">
+  <ng-template pTemplate="header">
+  <tr>
+    <th>Transaction ID</th>
+    <th>Date</th>
+    <th>Time</th>
+    <th>Tip</th>
+    <th>Sum</th>
+  </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-transaction>
+  <tr>
+  <td>{{ transaction.tid }}</td>
+  <td>{{ transaction.date }}</td>
+  <td>{{ transaction.time }}</td>
+  <td> {{transaction.tip | currency}} </td>
+  <td>{{ transaction.totalSum | currency }}</td>
+  </tr>
+  </ng-template>
+  </p-table>
+ </div>
+ <br>
+ <br>
+ <div class = "container">
+   <br>
+   <div id = "bargraph_ORDERS_MOST"></div>
+ </div>
+ <br>
+ <br>
+ <div class = "container">
+    <h2 class="text-center font-weight-light">{{drinkerName}}'s Spendings</h2>
+    <p-tabView orientation = "right" >
+        <p-tabPanel header="Date">
+            <form [formGroup] = "spendingsForm_Date" (ngSubmit) = "onSubmitbyDate()">
+                <label>
+                  Generate Bar Graph
+                </label> 
+                 <br>
+                 <label>
+                   On Date:
+                   <input  type = "text" formControlName = "graphDate" required minlength="10"  maxlength="10">
+                   <p>
+                     (Input Format: YYYY-MM-DD)
+                  </p>
+                 </label>
+                 <br>
+                 <label>
+                  At Bar:
+                   <input type = "text" formControlName = "barName">
+                 </label>
+                 <br>
+                 <div [hidden]="!successD" id = "bargraph_Drinker_Spending_Date" ></div>
+                 <br>
+                 <button type = "submit" [disabled] = "!spendingsForm_Date.valid">Submit</button>
+                 <br>
+                 <p> GENERATE GRAPH STATUS: {{successD}} </p>
+          </form>
+        </p-tabPanel>
+        <p-tabPanel header="Week">
+            <form [formGroup] = "spendingsForm_Week" (ngSubmit) = "onSubmitbyWeek()">
+                <label>
+                  Generate Bar Graph
+                </label> 
+                 <br>
+                 <label>
+                   On Week Of:
+                   <input  type = "text" formControlName = "graphWeek" required minlength="10" required maxlength="10">
+                   <p></p>
+                     (Input Format: YYYY-MM-DD)
+                  <p></p>
+                 </label>
+                 <br>
+                 <label>
+                  At Bar:
+                   <input type = "text" formControlName = "barName">
+                 </label>
+                 <br>
+                 <div [hidden]="!successW" id = "bargraph_Drinker_Spending_Week"></div>
+                 <br>
+                 <button type = "submit" [disabled] = "!spendingsForm_Week.valid">Submit</button>
+                 <br>
+                 <p> GENERATE GRAPH STATUS: {{successW}} </p>
+            </form>
+        </p-tabPanel>
+        <p-tabPanel header="Month">
+          <form [formGroup] = "spendingsForm_Month" (ngSubmit) = "onSubmitbyMonth()">
+                <label>
+                  Generate Bar Graph
+                </label> 
+                 <br>
+                 <label>
+                   On Month:
+                   <input  type = "text" formControlName = "graphMonth" required minlength="7" required maxlength="7">
+                   <p>
+                     (Input Format: YYYY-MM)
+                  </p>
+                 </label>
+                 <br>
+                 <label>
+                  At Bar:
+                   <input type = "text" formControlName = "barName">
+                 </label>
+                 <br>
+                 <div [hidden]="!successM" id = "bargraph_Drinker_Spending_Month"></div>
+                 <br>
+                 <button type = "submit" [disabled] = "!spendingsForm_Month.valid">Submit</button>
+                 <br>
+                 <p> GENERATE GRAPH STATUS: {{successM}} </p>
+          </form>
+        </p-tabPanel>
+    </p-tabView>
+ </div>
